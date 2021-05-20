@@ -68,7 +68,7 @@ function App() {
   useEffect(() => {
     (async () => {
       setLoading(true);
-      await query(pageParams.pageSize, pageParams.pageSize * pageParams.page);
+      setItems(await query(pageParams.pageSize, pageParams.pageSize * pageParams.page));
       setLoading(false);
     })();
   }, []);
@@ -76,7 +76,7 @@ function App() {
   useEffect(() => {
     (async () => {
       setLoading(true);
-      await query(pageParams.pageSize, pageParams.pageSize * pageParams.page);
+      setItems(await query(pageParams.pageSize, pageParams.pageSize * pageParams.page));
       setLoading(false);
     })();
   }, [pageParams]);
@@ -87,7 +87,7 @@ function App() {
         return response.data;
       })
       .then(entities => {
-        setItems(entities.map((x, i) => ({ index: i + offset, ...x })));       // リスト表示するためユニークな番号を付けて返す。
+        return entities.map((x, i) => ({ index: i + offset, ...x }));       // リスト表示するためユニークな番号を付けて返す。
       })
       .catch((response) => {
         console.error(response);
